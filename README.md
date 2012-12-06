@@ -39,9 +39,9 @@ You can pass some configuration parameters to the constructor before compress:
 
 ### **TODO**
 
- ** Vows.js tests
- ** Single file compression
- ** Add more todos...
+ * Vows.js tests
+ * Single file compression
+ * Add more todos...
 
 
 ### **License (MIT)**
