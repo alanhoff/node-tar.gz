@@ -1,0 +1,41 @@
+{
+    "name": "tar.gz",
+    "version": "0.0.1",
+    "description": "Native gzip compression and decompression utility for Node.js.",
+    "keywords": [
+        "compression",
+        "decompression",
+        "compress",
+        "decompress",
+        "tar",
+        "tape archive",
+        "tape",
+        "archive",
+        "gzip",
+        "gz"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/cranic/node-tar.gz.git"
+    },
+    "author": "Cranic Tecnologia <contato@cranic.com.br>",
+    "contributors": [
+        "Alan Hoffmeister <alan@cranic.com.br>"
+    ],
+    "dependencies": {
+        "coffee-script": "1.4.x",
+        "fstream": "0.1.x",
+        "tar": "0.1.x"
+    },
+    "devDependencies": {
+        "vows": "0.7.x"
+    },
+    "main": "index",
+    "engines": {
+        "node": "0.8.x"
+    },
+    "bugs": {
+        "url": "http://github.com/cranic/node-tar.gz/issues"
+    },
+    "license" : "MIT <http://opensource.org/licenses/MIT>"
+}
