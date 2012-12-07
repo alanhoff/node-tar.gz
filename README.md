@@ -3,7 +3,13 @@ Native gzip compression and decompression utility for Node.js.
 
 ### **Installation**
 
+For simple installation:
+
     npm install tar.gz
+
+If you want to use the `targz` command line:
+
+    npm intall -g tar.gz
 
 ### **Usage**
 
@@ -36,6 +42,34 @@ You can pass some configuration parameters to the constructor before compress:
         memLevel : 6 //the memory allocation level from 1-9, default: 6
         proprietary : false //to include or not proprietary headers, default: true
     });
+
+### **Command line**
+
+    $ targz -h
+
+      Usage: targz [options]
+
+      Options:
+
+        -h, --help           output usage information
+        -V, --version        output the version number
+        -c, --compress       Compress folder to archive
+        -x, --extract        Extract archive to folder
+        -l, --level [n]      Compression level from 0-9. Default 6.
+        -m, --memory [n]     Memory allocation level from 1-9. Default 6.
+        -n, --noproprietary  Remove proprietary headers.
+
+      Examples:
+
+        Default compression
+        $ targz -c /folder/to/compres /path/to/archive.tar.gz
+
+        Extracting some archive
+        $ targz -x /path/to/archive.tar.gz /destination/folder
+
+        Maximum compression
+        $ targz -l 9 -m 9 -c /folder/to/compres /path/to/archive.tar.gz
+
 
 ### **TODO**
 
