@@ -38,11 +38,10 @@
         "node": "0.8.x"
     },
     "scripts": { 
-        "pretest": "cake build", 
         "prepublish": "cake build"
     },
     "bin" : {
-        "targz": "./lib/bin"
+        "targz": "./bin/targz"
     },
     "bugs": {
         "url": "http://github.com/cranic/node-tar.gz/issues"
