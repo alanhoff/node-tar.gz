@@ -37,11 +37,12 @@ With the same easy you can extract a gziped file:
 You can pass some configuration parameters to the constructor before compress:
 
     var targz = require('tar.gz');
-    var compress = new targz({
-        level : 6 //the compression level from 0-9, default: 6
-        memLevel : 6 //the memory allocation level from 1-9, default: 6
-        proprietary : false //to include or not proprietary headers, default: true
-    });
+
+    var level = 6 //the compression level from 0-9, default: 6
+    var memLevel = 6 //the memory allocation level from 1-9, default: 6
+    var proprietary = true //to include or not proprietary headers, default: true
+
+    var compress = new targz(level, memLevel, proprietary).compress(...)
 
 ### **Command line**
 
