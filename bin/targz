@@ -2,7 +2,7 @@
 
 var compress, level, memLevel, program, proprietary, targz;
 
-targz = require('./targz');
+targz = require('../lib/targz');
 
 program = require('commander');
 

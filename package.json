@@ -1,6 +1,6 @@
 {
     "name": "tar.gz",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Native gzip compression and decompression utility for Node.js.",
     "keywords": [
         "compression",
