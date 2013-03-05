@@ -35,7 +35,7 @@
     },
     "main": "./lib/targz",
     "engines": {
-        "node": "0.8.x"
+        "node": ">=0.6.0"
     },
     "scripts": { 
         "prepublish": "cake build"
