@@ -65,14 +65,20 @@ class TarGz
     # @param callback Function A function that will be called when the extraction
     # ended and will have the error object
     # @return Object the main class methods.
-    extract : (source, destination, callback) ->
+    extract : (source, destination, callback, errback) ->
         self = @
-
+        errback = ((err) -> console.log err) if !errback
         process.nextTick ->
-            fstream.Reader(
+            stream = fstream.Reader(
                 path : source
                 type : 'File'
-            ).pipe(zlib.createGunzip()).pipe(tar.Extract({path: destination})).on 'end', ->
+            )
+            stream.on 'error', errback
+            gzstream = stream.pipe(zlib.createGunzip())
+            gzstream.on 'error', errback
+            tstream = gzstream.pipe(tar.Extract({path: destination}))
+            tstream.on 'error', errback
+            tstream.on 'end', ->
                 callback null if typeof callback == 'function'  
 
         @
