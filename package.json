@@ -46,5 +46,5 @@
     "bugs": {
         "url": "http://github.com/cranic/node-tar.gz/issues"
     },
-    "license" : "MIT <http://opensource.org/licenses/MIT>"
+    "license" : "MIT"
 }
