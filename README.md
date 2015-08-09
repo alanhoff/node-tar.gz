@@ -1,103 +1,159 @@
-# **node-tar.gz**
-Native gzip compression and decompression utility for Node.js.
+# tar.gz
+[![Coverage Status](https://coveralls.io/repos/alanhoff/node-tar.gz/badge.svg?branch=master)][0]
+[![Travis](https://travis-ci.org/alanhoff/node-tar.gz.svg)][1]
+[![Dependencies](https://david-dm.org/alanhoff/node-tar.gz.svg)][2]
 
-### **Installation**
+Pure gzip tarball tools and sugar for Node.js
 
-For simple installation:
+### API
 
-    npm install tar.gz
+* `createReadStream` reads a directory and returns a readable stream containing
+a gzipped tarball.
 
-If you want to use the `targz` command line:
+```javascript
+var fs = require('fs');
+var targz = require('tar.gz');
 
-    npm intall -g tar.gz
+// Create all streams that we need
+var read = targz().createReadStream('/some/directory');
+var write = fs.createWriteStream('compressed.tar.gz');
 
-### **Usage**
+// Let the magic happen
+read.pipe(write);
+```
 
-At the moment this package can only compress a folder and everything that
-is inside it. To compress something is easy:
+* `createWriteStream` writes the content from a tarball stream into some
+directory.
 
-    var targz = require('tar.gz');
-    var compress = new targz().compress('/path/to/compress', '/path/to/store.tar.gz', function(err){
-        if(err)
-            console.log(err);
+```javascript
+var request = require('request');
+var targz = require('tar.gz');
 
-        console.log('The compression has ended!');
-    });
+// Streams
+var read = request.get('https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz');
+var write = targz().createWriteStream('/some/directory');
 
-With the same easy you can extract a gziped file:
+read.pipe(write);
+```
 
-    var targz = require('tar.gz');
-    var compress = new targz().extract('/path/to/stored.tar.gz', '/path/to/extract', function(err){
-        if(err)
-            console.log(err);
+* `createParseStream` reads a tarball stream and emits `entry` for every entry
+parsed .
 
-        console.log('The extraction has ended!');
-    });
+```javascript
+var request = require('request');
+var targz = require('tar.gz');
 
-You can pass some configuration parameters to the constructor before compress:
+// Streams
+var read = request.get('https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz');
+var parse = targz().createParseStream();
 
-    var targz = require('tar.gz');
+parse.on('entry', function(entry){
+  console.log(entry.path);
+});
 
-    var level = 6 //the compression level from 0-9, default: 6
-    var memLevel = 6 //the memory allocation level from 1-9, default: 6
-    var proprietary = true //to include or not proprietary headers, default: true
+read.pipe(parse);
+```
 
-    var compress = new targz(level, memLevel, proprietary).compress(...)
+* `compress` compress one directory and saves the result to a tarball.
 
-### **Command line**
+```javascript
+// Using callbacks
+targz().compress('/home/myuser', '/bkp/backup.tar.gz', function(err){
+  if(err)
+    console.log('Something is wrong ', err.stack);
 
-    $ targz -h
+  console.log('Job done!');
+});
 
-      Usage: targz [options]
+// Using promises
+targz().compress('/home/myuser', '/bkp/backup.tar.gz')
+  .then(function(){
+    console.log('Job done!');
+  })
+  .catch(function(err){
+    console.log('Something is wrong ', err.stack);
+  });
+```
 
-      Options:
+* `extract` extracts a tarball into a directory.
 
-        -h, --help           output usage information
-        -V, --version        output the version number
-        -c, --compress       Compress folder to archive
-        -x, --extract        Extract archive to folder
-        -l, --level [n]      Compression level from 0-9. Default 6.
-        -m, --memory [n]     Memory allocation level from 1-9. Default 6.
-        -n, --noproprietary  Remove proprietary headers.
+```javascript
+// Using callbacks
+targz().extract('/bkp/backup.tar.gz', '/home/myuser', function(err){
+  if(err)
+    console.log('Something is wrong ', err.stack);
 
-      Examples:
+  console.log('Job done!');
+});
 
-        Default compression
-        $ targz -c /folder/to/compres /path/to/archive.tar.gz
+// Using promises
+targz().extract('/bkp/backup.tar.gz', '/home/myuser')
+  .then(function(){
+    console.log('Job done!');
+  })
+  .catch(function(err){
+    console.log('Something is wrong ', err.stack);
+  });
+```
 
-        Extracting some archive
-        $ targz -x /path/to/archive.tar.gz /destination/folder
+### Gzip options
 
-        Maximum compression
-        $ targz -l 9 -m 9 -c /folder/to/compres /path/to/archive.tar.gz
+You can pass any `zlib.createGzip` options to `tar.gz` constructor, like so:
 
+```javascript
+var tarball = new TarGz({
+  level: 9, // Maximum compression
+  memLevel: 9
+});
+```
 
-### **TODO**
+### Command line
 
- * Vows.js tests
- * Single file compression
- * Add more todos...
+It's also possible to use `tar.gz` as a command line utility, you just need to
+install it globally with `npm install -g tar.gz`. Here is the help command
+output.
 
+```
+Usage: targz [options] [command]
 
-### **License (MIT)**
+Commands:
 
-Copyright (C) 2012 Cranic Tecnologia e Informática LTDA
+  extract|e <source> <target>             Extracts the source tarball into the target directory
+  compress|c [options] <source> <target>  Compress the source directory into the target tarball
+  list|l <source>                         List all paths inside the source tarball
 
-Permission is hereby granted, free of charge, to any person obtaining 
-a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, 
-subject to the following conditions:
+Options:
 
-The above copyright notice and this permission notice shall be 
-included in all copies or substantial portions of the Software.
+  -h, --help     output usage information
+  -V, --version  output the version number
+```
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+### Testing
+
+```bash
+git clone git@github.com:alanhoff/node-tar.gz.git
+cd node-tar.gz
+npm install && npm test
+```
+
+### License (ISC)
+
+```
+Copyright (c) 2015, Alan Hoffmeister <alanhoffmeister@gmail.com>
+
+Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+```
+
+[0]: https://coveralls.io/github/alanhoff/node-tar.gz
+[1]: https://travis-ci.org/alanhoff/node-tar.gz
+[2]: https://david-dm.org/alanhoff/node-tar.gz

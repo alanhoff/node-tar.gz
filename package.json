@@ -1,50 +1,51 @@
 {
-    "name": "tar.gz",
-    "version": "0.1.1",
-    "description": "Native gzip compression and decompression utility for Node.js.",
-    "keywords": [
-        "compression",
-        "decompression",
-        "compress",
-        "decompress",
-        "tar",
-        "tape archive",
-        "tape",
-        "archive",
-        "gzip",
-        "gz"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/cranic/node-tar.gz.git"
-    },
-    "author": "Cranic Tecnologia <contato@cranic.com.br>",
-    "contributors": [
-        "Alan Hoffmeister <alan@cranic.com.br>"
-    ],
-    "dependencies": {
-        "fstream": "0.1.x",
-        "tar": "0.1.x",
-        "commander": "1.1.x"
-    },
-    "devDependencies": {
-        "coffee-script" : "1.4.x",
-        "walk" : "2.2.x",
-        "wrench" : "1.4.x",
-        "vows" : "0.7.x"
-    },
-    "main": "./lib/targz",
-    "engines": {
-        "node": ">=0.6.0"
-    },
-    "scripts": { 
-        "prepublish": "cake build"
-    },
-    "bin" : {
-        "targz": "./bin/targz"
-    },
-    "bugs": {
-        "url": "http://github.com/cranic/node-tar.gz/issues"
-    },
-    "license" : "MIT <http://opensource.org/licenses/MIT>"
+  "name": "node-tar.gz",
+  "version": "1.0.0",
+  "description": "Pure javascript tarball tools for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --tdd --bail test/**/*-test.js",
+    "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec tests/**/*-test.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanhoff/node-tar.gz.git"
+  },
+  "keywords": [
+    "compression",
+    "decompression",
+    "compress",
+    "decompress",
+    "tar",
+    "tape",
+    "archive",
+    "tape",
+    "arquive",
+    "gzip",
+    "gz",
+    "tarball"
+  ],
+  "author": "Alan Hoffmeister <alanhoffmeister@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alanhoff/node-tar.gz/issues"
+  },
+  "bin": {
+    "targz": "bin/targz"
+  },
+  "homepage": "https://github.com/alanhoff/node-tar.gz#readme",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "chai": "^3.2.0",
+    "commander": "^2.8.1",
+    "fstream": "^1.0.7",
+    "mocha": "^2.2.5",
+    "mout": "^0.11.0",
+    "tar": "^2.1.1"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.3",
+    "istanbul": "^0.3.17",
+    "temp": "^0.8.3"
+  }
 }

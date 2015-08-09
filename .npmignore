@@ -1,0 +1,5 @@
+**/*
+!bin/targz
+!package.json
+!index.js
+!LICENSE

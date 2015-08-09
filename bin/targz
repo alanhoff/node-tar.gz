@@ -1,55 +1,54 @@
-#!/usr/bin/env node
+#!/usr/bin/node
 
-var compress, level, memLevel, program, proprietary, targz;
+// jshint maxlen: 103
+var targz = require('../');
+var commander = require('commander');
+var package = require('../package.json');
+var fs = require('fs');
+commander.version(package.version);
 
-targz = require('../lib/targz');
-
-program = require('commander');
-
-program.version('0.0.1').option('-c, --compress', 'Compress folder to archive').option('-x, --extract', 'Extract archive to folder').option('-l, --level [n]', 'Compression level from 0-9. Default 6.', parseInt).option('-m, --memory [n]', 'Memory allocation level from 1-9. Default 6.', parseInt).option('-n, --noproprietary', 'Remove proprietary headers.');
-
-program.on('--help', function() {
-  console.log('  Examples:');
-  console.log('');
-  console.log('    Default compression');
-  console.log('    $ targz -c /folder/to/compres /path/to/archive.tar.gz');
-  console.log('');
-  console.log('    Extracting some archive');
-  console.log('    $ targz -x /path/to/archive.tar.gz /destination/folder');
-  console.log('');
-  console.log('    Maximum compression');
-  console.log('    $ targz -l 9 -m 9 -c /folder/to/compres /path/to/archive.tar.gz');
-  return console.log('');
-});
-
-program.parse(process.argv);
-
-if (program.level) {
-  level = program.level;
-} else {
-  level = 6;
-}
-
-if (program.memory) {
-  memLevel = program.memory;
-} else {
-  memLevel = 6;
-}
-
-if (program.noproprietary) {
-  proprietary = false;
-} else {
-  proprietary = true;
-}
-
-if (program.compress) {
-  console.log('Compressing...');
-  compress = new targz(level, memLevel, proprietary).compress(program.args[0], program.args[1], function() {
-    return console.log('Done!');
+// Extract files
+commander
+  .command('extract <source> <target>')
+  .alias('e')
+  .description('Extracts the source tarball into the target directory')
+  .action(function(source, target) {
+    targz().extract(source, target, function(err) {
+      if (err)
+        throw err;
+    });
   });
-} else if (program.extract) {
-  console.log('Extracting...');
-  compress = new targz().extract(program.args[0], program.args[1], function() {
-    return console.log('Done!');
+
+// Compress files
+commander
+  .command('compress <source> <target>')
+  .alias('c')
+  .description('Compress the source directory into the target tarball')
+  .option('-l, --level', 'Compression level', 6)
+  .option('-m, --memlevel', 'Memory level used during compression', 6)
+  .action(function(source, target, options) {
+    targz({
+      memLevel: options.memlevel,
+      level: options.level
+    }).compress(source, target, function(err) {
+      if (err)
+        throw err;
+    });
   });
-}
+
+// List paths
+commander
+  .command('list <source>')
+  .alias('l')
+  .description('List all paths inside the source tarball')
+  .action(function(source) {
+    var parse = targz().createParseStream();
+    parse.on('entry', function(entry) {
+      console.log(entry.path);
+    });
+
+    fs.createReadStream(source).pipe(parse);
+  });
+
+// Catch all
+commander.parse(process.argv);

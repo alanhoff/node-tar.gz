@@ -1,0 +1,26 @@
+{
+  "node": true,
+  "boss": true,
+  "bitwise": true,
+  "noempty": true,
+  "latedef": true,
+  "camelcase": false,
+  "eqeqeq": true,
+  "smarttabs": true,
+  "undef": true,
+  "unused": true,
+  "newcap": true,
+  "trailing": true,
+  "maxlen": 80,
+  "maxcomplexity": 5,
+  "indent": 2,
+  "quotmark": "single",
+  "strict": false,
+  "globals": {
+    "describe": true,
+    "before": true,
+    "after": true,
+    "it": true,
+    "test": true
+  }
+}
