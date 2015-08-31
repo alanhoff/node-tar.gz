@@ -33,5 +33,21 @@ describe('General compression test', function() {
 
       read.pipe(write);
     });
+
+    it('Should catch an error from zlib while decompressing', function(done) {
+
+      var error = 'not caught';
+
+      targz().extract(__dirname + '/fixtures/test.zip', dir, function(){
+        error = 'caught';
+        expect(error).to.be.equal('caught');
+        done();
+      }).then(function(){
+        setTimeout(function() {
+          done();
+        }, 200);
+      });
+    });
+
   });
 });
