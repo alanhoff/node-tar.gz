@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 // jshint maxlen: 103
 var targz = require('../');
