@@ -23,6 +23,7 @@ describe('General compression test', function() {
       var write = targz().createWriteStream(dir);
 
       write.on('close', function() {
+        expect(fs.readdirSync(dir + '/uncompressed')).to.have.length(2);
         expect(utils.equalFiles(
           __dirname + '/fixtures/uncompressed/lorem.txt',
           dir + '/uncompressed/lorem.txt')).to.be.equal(true);
