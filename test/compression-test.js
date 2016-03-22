@@ -59,6 +59,5 @@ describe('General compression test', function() {
         done();
       });
     });
-
   });
 });
