@@ -67,6 +67,7 @@ describe('General compression test', function() {
 
       var result = 'not extracted';
 
+
       targz().extract(__dirname + '/fixtures/compressed.tar.gz', dir, function(){
         result = 'extracted';
         expect(result).to.be.equal('extracted');
