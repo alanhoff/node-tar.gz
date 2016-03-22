@@ -48,7 +48,6 @@ describe('General compression test', function() {
       });
     });
 
-
     it('Should call the callback when zlib decompression is finished', function(done) {
 
       var result = 'not extracted';
