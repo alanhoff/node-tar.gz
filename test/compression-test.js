@@ -48,5 +48,36 @@ describe('General compression test', function() {
       });
     });
 
+
+    it('Should call the callback when zlib decompression is finished', function(done) {
+
+      var result = 'not extracted';
+
+      targz().extract(__dirname + '/fixtures/test.zip', dir, function(){
+        result = 'extracted';
+        expect(result).to.be.equal('extracted');
+        done();
+      }).then(function(){
+        setTimeout(function() {
+          done();
+        }, 200);
+      });
+    });
+
+    it('Should call the callback when tar.gz decompression is finished', function(done) {
+
+      var result = 'not extracted';
+
+      targz().extract(__dirname + '/fixtures/compressed.tar.gz', dir, function(){
+        result = 'extracted';
+        expect(result).to.be.equal('extracted');
+        done();
+      }).then(function(){
+        setTimeout(function() {
+          done();
+        }, 200);
+      });
+    });
+
   });
 });
