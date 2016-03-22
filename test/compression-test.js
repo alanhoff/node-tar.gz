@@ -56,10 +56,6 @@ describe('General compression test', function() {
         result = 'extracted';
         expect(result).to.be.equal('extracted');
         done();
-      }).then(function(){
-        setTimeout(function() {
-          done();
-        }, 200);
       });
     });
 
@@ -71,10 +67,6 @@ describe('General compression test', function() {
         result = 'extracted';
         expect(result).to.be.equal('extracted');
         done();
-      }).then(function(){
-        setTimeout(function() {
-          done();
-        }, 200);
       });
     });
 
