@@ -1,6 +1,6 @@
 {
   "name": "tar.gz",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Pure javascript tarball tools for Node.js",
   "main": "index.js",
   "scripts": {
@@ -36,14 +36,14 @@
   "homepage": "https://github.com/alanhoff/node-tar.gz#readme",
   "dependencies": {
     "bluebird": "^2.9.34",
-    "chai": "^3.2.0",
     "commander": "^2.8.1",
     "fstream": "^1.0.8",
-    "mocha": "^2.2.5",
     "mout": "^0.11.0",
     "tar": "^2.1.1"
   },
   "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
     "coveralls": "^2.11.3",
     "istanbul": "^0.3.17",
     "temp": "^0.8.3"
