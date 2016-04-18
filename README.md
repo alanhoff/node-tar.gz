@@ -139,7 +139,7 @@ npm install && npm test
 ### License (ISC)
 
 ```
-Copyright (c) 2015, Alan Hoffmeister <alanhoffmeister@gmail.com>
+Copyright (c) 2015-2016, Alan Hoffmeister <alanhoffmeister@gmail.com>
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
