@@ -49,5 +49,16 @@ describe('General compression test', function() {
       });
     });
 
+    it('Should call the callback when zlib decompression is finished', function(done) {
+      targz().extract(__dirname + '/fixtures/test.zip', dir, function(){
+        done();
+      });
+    });
+
+    it('Should call the callback when tar.gz decompression is finished', function(done) {
+      targz().extract(__dirname + '/fixtures/compressed.tar.gz', dir, function(){
+        done();
+      });
+    });
   });
 });
