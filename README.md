@@ -107,6 +107,16 @@ var tarball = new TarGz({
 });
 ```
 
+### Tar options
+
+You can pass any [tar](https://github.com/npm/node-tar#tarpackproperties) properties to `tar.gz` constructor in the second argument, like so:
+
+```javascript
+var tarball = new TarGz({}, {
+  fromBase: true // do not include top level directory
+});
+```
+
 ### Command line
 
 It's also possible to use `tar.gz` as a command line utility, you just need to
