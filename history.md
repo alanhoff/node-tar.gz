@@ -1,4 +1,8 @@
-### `v1.0.2
+### `v1.0.4`
+
+* Update fstream version to remove `graceful-fs` warning
+
+### `v1.0.2`
 
 * Exclude `bin` folder from `.npmignore`
 
