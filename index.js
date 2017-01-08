@@ -125,7 +125,7 @@ TarGz.prototype.compress = bluebird.method(function(source, destination, cb) {
 
 /**
  * A sugar method to decompress into a directory
- * @param  {String} source The tarball to be extracted
+ * @param  {String|ReadStream} source The tarball to be extracted
  * @param  {String} destination A folder where the tarball will be extracted
  * @param  {Function} [cb] An optinal callback that will be called when the
  * job is done
@@ -150,7 +150,7 @@ TarGz.prototype.extract = bluebird.method(function(source, destination, cb) {
     });
 
   // Create all streams that we need
-  var read = fs.createReadStream(source);
+  var read = source.writable ? source : fs.createReadStream(source);
   var write = this.createWriteStream(destination);
 
   // Listen to events
