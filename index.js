@@ -56,8 +56,13 @@ TarGz.prototype.createWriteStream = function(directory) {
     strip: this._options.tar.strip || 0
   });
 
-  this._bubble(stream1, stream2);
+  this._bubble(stream2, stream1);
   stream1.pipe(stream2);
+
+  // Monkey patch stream1's .on() so stream2 actually handles events
+  stream1.on = function(event, listener) {
+    stream2.on(event, listener);
+  };
 
   return stream1;
 };
