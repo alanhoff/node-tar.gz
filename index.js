@@ -77,6 +77,10 @@ TarGz.prototype.createParseStream = function() {
   stream2.on('entry', function(entry) {
     stream1.emit('entry', entry);
   });
+  
+  stream2.on('end', function(entry) {
+    stream1.emit('end', entry);
+  });
 
   stream1.pipe(stream2);
   return stream1;
