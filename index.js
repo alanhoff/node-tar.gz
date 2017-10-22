@@ -33,7 +33,11 @@ var TarGz = module.exports = function(zoptions, toptions) {
 TarGz.prototype.createReadStream = function(directory) {
 
   // Create all needed streams
-  var stream1 = fstream.Reader(directory);
+  // passing readerFilter from tar option, if any
+  var stream1 = fstream.Reader({
+      path: directory,
+      filter: (this._options.tar && this._options.tar.readerFilter) ? this._options.tar.readerFilter : null
+  });
   var stream2 = tar.Pack(this._options.tar);
   var stream3 = zlib.createGzip(this._options.zlib);
 
