@@ -1,7 +1,7 @@
 {
   "name": "tar.gz",
   "version": "1.0.6",
-  "description": "Pure javascript tarball tools for Node.js",
+  "description": "⚠️ DEPRECATED ⚠️ Pure javascript tarball tools for Node.js",
   "main": "index.js",
   "scripts": {
     "test": "mocha --tdd --bail test/**/*-test.js",
