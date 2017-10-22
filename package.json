@@ -1,6 +1,6 @@
 {
   "name": "tar.gz",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Pure javascript tarball tools for Node.js",
   "main": "index.js",
   "scripts": {
