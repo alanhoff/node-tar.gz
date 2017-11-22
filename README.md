@@ -6,7 +6,7 @@ No one should be using this module since it's not being maintained anymore. This
 repository and the package will still be online for research purpose only.
 
 To interact with gzipped tarballs please use the tar module instead:
-https://npmjs/com/tar
+https://www.npmjs.com/package/tar
 
 
 ### License (ISC)
